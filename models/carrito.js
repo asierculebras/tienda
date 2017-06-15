@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
                           	          },
                             total:   { type: DataTypes.INTEGER,
                                         validate: { notEmpty: {msg: "Hay que ponerle un total"}}
-                                      }
+                                      },
+                            productos: { type: DataTypes.JSON,
+                                        validate: { notEmpty: {msg: "Hay que ponerle una lista de productos"}}
+                             }
+
                           });
 };

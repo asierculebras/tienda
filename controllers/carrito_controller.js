@@ -20,6 +20,7 @@ var redir = req.body.redir || '/'
 var login     = req.body.login;
 var user = "";
 var cajero = "";
+var productos = {};
 console.log("EL LOGIN PARA BUSCAR EL USER ES " + login);
 
 models.User.findOne({where: {username: login}},{include: [models.Carrito]})
@@ -32,13 +33,13 @@ models.User.findOne({where: {username: login}},{include: [models.Carrito]})
            console.log("ENTRA EN FUNCTION 2");
            console.log("EL USERID DEL cajero QUE TIENE EL CALLBACK ES: " + userId);
            console.log("EL MOMBRE DEL cajero QUE TIENE EL CALLBACK ES: " + cajero);
+           console.log("LOS PRODUCTOS SON: " + productos);
 
 
-          var carrito = models.Carrito.build({cajero: cajero ,total:'0',UserId: userId})
+          var carrito = models.Carrito.build({cajero: cajero ,total:'0', productos: productos, UserId: userId})
                 console.log("ENTRA EN FUNCTION 3");
-                carrito.save({fields: ["cajero", "total", "UserId"]})
+                carrito.save({fields: ["cajero", "total","productos", "UserId"]})
                  .then(function(carrito) {
-                   //req.flash('success', 'Carrito creado con éxito.');
                     console.log("¡¡¡¡¡¡¡¡¡¡SE HA CREADO UN NUEVO CARRITO!!!!!!!!!!! " + carrito);
                     console.log("CON ID: " + carrito.id);
                     console.log("CON USERID: " + carrito.UserId);
@@ -47,8 +48,8 @@ models.User.findOne({where: {username: login}},{include: [models.Carrito]})
 
                     }) 
                     .catch(Sequelize.ValidationError, function(error) {
-                      //req.flash('error', 'Error al crear un Comentario: ' + error.message);
-                      console.log("%%%%%%%%%%%%%%%   ERROR EN EL FORM %%%%%%%%%%%%%%%");
+                      console.log("%%%%%%%%%%%%%%%   ERROR al crear CARRITO    %%%%%%%%%%%%%%%");
+                      console.log(error);
                       res.render('/session');
                     })
                       .catch(function(error) {
@@ -70,7 +71,7 @@ models.User.findOne({where: {username: login}},{include: [models.Carrito]})
 exports.destroy = function (req, res, next) {
 var session = req.session;
 console.log("la sesion uqe hay es   " + session);
-var user = session;
+var user = session.user;
 console.log("EL USER ES   " + user);
 var id = user.id;
 console.log("EL ID ES   " + id);
@@ -99,6 +100,8 @@ models.Carrito.findOne({where: {cajero: username}})
     })
     .catch(function(error) {
       console.log("error number 2");
+            console.log(error);
+
 
       //next(error);
     }); 

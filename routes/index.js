@@ -25,6 +25,7 @@ router.param('userId', userController.load);  // autoload :userId
 // Definición de rutas de los Productos
 router.get('/productos',                     productoController.index);
 router.get('/productos/:productoId(\\d+)',       productoController.show);
+router.post('/productos/:productoId(\\d+)', productoController.comprar);
 
 router.get('/productos/new',                 productoController.new);
 router.post('/productos',                    productoController.create);

@@ -11,6 +11,8 @@ module.exports = {
                           validate: { notEmpty: {msg: "falta un nombre"} } },
              total:    { type: Sequelize.INTEGER,
                           validate: { notEmpty: {msg: "Poner el precio"} } },
+             productos:  { type: Sequelize.JSON,
+                          validate: { notEmpty: {msg: "falta una lista"} } },            
              createdAt: { type: Sequelize.DATE,     allowNull: false },
              updatedAt: { type: Sequelize.DATE,     allowNull: false }
            },

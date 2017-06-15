@@ -1,7 +1,10 @@
 
 
 <p>
-  <form method="post" action="/productos/comprar">        
+  <form method="post" action="/productos/<%= producto.id %>">     
+<% if (session.user) { %>
+  <p> Hola <%= session.user.username %></p> 
+  <% } %>  
     <p>
       El producto selecionado es: <br>
        <%= producto.nombre %>
@@ -13,7 +16,13 @@
     </p>
 
     <p>
-      <input type="submit" value="Comprar">
+    <% if (session.user ) { %>
+    <input type="text" id="resp" name="cantidad" value=1  required/> 
+    <br/>
+
+ <input type="submit" value="Comprar">
+   <% } %> 
+     
     </p>
   </form>
 </p>

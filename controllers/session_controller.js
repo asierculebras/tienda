@@ -4,15 +4,6 @@ var Sequelize = require('sequelize');
 var url = require('url');
 
 
-// Si se supera el tiempo de inactividad indicado por esta variable,
-// sin que el usuario solicite nuevas paginas, entonces se cerrara
-// la sesion del usuario.
-// El valor esta en milisegundos.
-// 5 minutos
-var maxIdleTime = 5*60*1000;
-
-
-
 
 
 // Middleware: Se requiere hacer login.

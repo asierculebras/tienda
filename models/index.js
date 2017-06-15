@@ -40,7 +40,7 @@ Carrito.belongsTo(User, {foreignKey: 'UserId'});
 
 
 //relaccion N a N entre los carritos y los productos.
-//Producto.belongsToMany(Carrito);
+//Producto.belongsToMany(Carrito,{foreignKey: 'UserId'});
 
 
 exports.Producto = Producto; // exportar definición de tabla Quiz

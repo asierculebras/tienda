@@ -32,10 +32,10 @@ exports.index = function(req, res, next) {
 // GET /quizzes/:id
 exports.show = function(req, res, next) {
 
-	var answer = req.query.answer || '';
+	var session = req.session ;
 
 	res.render('productos/show', {producto: req.producto,
-								answer: answer});
+								session: session});
 };
 
 
@@ -51,14 +51,71 @@ exports.show = function(req, res, next) {
 
 // GET /quizzes/:id/check
 exports.comprar = function(req, res, next) {
-console.log("ha entrdo al post y tiene esto: " + req.body.producto);
+var username     = req.session.user.username;
+
+var cantidad = req.body.cantidad
+
+console.log("EL LOGIN PARA BUSCAR EL USER ES " + username);
+
+models.Carrito.findOne({where: {cajero: username}})
+    .then(function(carrito) { 
+                var productoId = req.params.productoId;
+                var cajero = carrito.cajero;
+                var total = carrito.total;
+                var UserId = req.session.user.id;
+                var productoId = "" + productoId;
+                var longitud = Object.keys(carrito.productos).length;
+                console.log("LA LONGITUD DEL PRODUCTO ES : " + longitud );
+                var igual = Object.keys(carrito.productos).length === 2;
+                console.log("IGUAL " + igual);
+
+                console.log("EL PRODUCTO ID ES: " + productoId);
+                console.log("EL EL JSON QUE tiene el CARRITO ES: " + JSON.stringify(carrito.productos));
+
+                if (longitud === 2){
+                    console.log("HA ENTRADO AL IF");
+                    var productos = {};
+                    productos[productoId] = {'productoId': productoId, 'cantidad':cantidad};
+              } else {
+                console.log("HA ENTRADO AL ELSE");
+                console.log("PRODUCTOID ES : " + productoId);
+                    var productoId = "" + productoId;
+
+                    productos[productoId] = {'productoId': productoId, 'cantidad':cantidad};
+                   console.log("DENTRO DEL ELSE PRODUCTOS ES : " + JSON.stringify(productos));
+              }
+                console.log("EL EL JSON QUE VOY A METER A CARRITO ES: " + JSON.stringify(productos));
+                carrito.updateAttributes({productos: productos})
+                 .then(function(carrito) {
+                      console.log("SE HA GUARDADO ESTOS PRODUCTOS" + JSON.stringify(carrito.productos));
+                      precio = 'nada';
+                      total = 
 
 
+                     res.render('compra', {carrito: carrito, precio: precio }) ;
 
-	res.render('productos/carrito', { quiz: req.quiz, 
-								   result: result, 
-								   answer: answer });
+                    }) 
+                    .catch(Sequelize.ValidationError, function(error) {
+                      //req.flash('error', 'Error al crear un Comentario: ' + error.message);
+                      console.log("%%%%%%%%%%%%%%%   ERROR al actualizar CARRITO    %%%%%%%%%%%%%%%");
+                      console.log(error);
+                      res.render('/session');
+                    })
+                      .catch(function(error) {
+                              console.log("ERROR AL INTENTAR GUARDAR LAS COSAS NUEVAS PARA EL CARRITO");
+                              console.log(error)
+                                     //next(error);
+                            });  
+        })
+      .catch(function(error) {
+        console.log("CAGADA");
+        console.log(error)
+               //next(error);
+      });  
+
 };
+
+
 
 exports.indexCompra = function(req, res, next) {
   models.Producto.findAll()
