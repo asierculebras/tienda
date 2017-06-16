@@ -21,6 +21,7 @@ var gateway = braintree.connect({
 // GET /compra
 exports.index = function(req, res, next) {
 			var precio = req.query.precio || 'el que sea'
+      
 			res.render('compra/index.ejs', {precio: precio});
 };
 

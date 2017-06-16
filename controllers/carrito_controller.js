@@ -20,7 +20,7 @@ var redir = req.body.redir || '/'
 var login     = req.body.login;
 var user = "";
 var cajero = "";
-var productos = {};
+var productos ;
 console.log("EL LOGIN PARA BUSCAR EL USER ES " + login);
 
 models.User.findOne({where: {username: login}},{include: [models.Carrito]})

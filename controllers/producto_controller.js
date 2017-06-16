@@ -40,16 +40,7 @@ exports.show = function(req, res, next) {
 
 
 
-
-
-
-
-
-
-
-//eliminar
-
-// GET /quizzes/:id/check
+// Post /productos/:productoId(\\d+)
 exports.comprar = function(req, res, next) {
 var username     = req.session.user.username;
 
@@ -62,37 +53,57 @@ models.Carrito.findOne({where: {cajero: username}})
                 var productoId = req.params.productoId;
                 var cajero = carrito.cajero;
                 var total = carrito.total;
-                var UserId = req.session.user.id;
+                var userId = req.session.user.id;
                 var productoId = "" + productoId;
-                var longitud = Object.keys(carrito.productos).length;
-                console.log("LA LONGITUD DEL PRODUCTO ES : " + longitud );
-                var igual = Object.keys(carrito.productos).length === 2;
-                console.log("IGUAL " + igual);
+                //var longitud = Object.keys(carrito.productos).length;
+                //console.log("LA LONGITUD DEL PRODUCTO ES : " + longitud );
+                //var igual = Object.keys(carrito.productos).length === 2;
+                //console.log("IGUAL " + igual);
+                console.log("EL CAJERO ES: " + carrito.cajero);
 
                 console.log("EL PRODUCTO ID ES: " + productoId);
                 console.log("EL EL JSON QUE tiene el CARRITO ES: " + JSON.stringify(carrito.productos));
 
-                if (longitud === 2){
+                 if (carrito.productos === null){
                     console.log("HA ENTRADO AL IF");
                     var productos = {};
                     productos[productoId] = {'productoId': productoId, 'cantidad':cantidad};
+                    console.log("EL EL JSON QUE meto en el CARRITO ES: " + JSON.stringify(productos));
+
               } else {
                 console.log("HA ENTRADO AL ELSE");
-                console.log("PRODUCTOID ES : " + productoId);
-                    var productoId = "" + productoId;
+                    var productos = carrito.productos;
+                    var id = "" + productoId;
+                    var aux = {'productoId': id, 'cantidad': cantidad};
+                    console.log("PRODUCTOID ES : " + id);
 
-                    productos[productoId] = {'productoId': productoId, 'cantidad':cantidad};
+                    console.log("EL EL JSON QUE tiene el CARRITO ES: " + JSON.stringify(productos));
+                    console.log("EL EL JSON QUE QUIERO METER AL CARRITO ES: " + JSON.stringify(aux));
+
+                   
+                    productos[id] = aux;
+// me falla aqui, no se como añadir otro {} al que ya habia antes, es decir no me lo actualiza.
+
+                    //productos.id = [productoId, cantidad];
                    console.log("DENTRO DEL ELSE PRODUCTOS ES : " + JSON.stringify(productos));
               }
                 console.log("EL EL JSON QUE VOY A METER A CARRITO ES: " + JSON.stringify(productos));
+
                 carrito.updateAttributes({productos: productos})
                  .then(function(carrito) {
-                      console.log("SE HA GUARDADO ESTOS PRODUCTOS" + JSON.stringify(carrito.productos));
+
+                      console.log("SE HA GUARDADO ESTOS PRODUCTOS " + JSON.stringify(carrito.productos));
                       precio = 'nada';
                       total = 
 
 
-                     res.render('compra', {carrito: carrito, precio: precio }) ;
+                     models.Producto.findAll()
+                        .then(function(productos) {
+                          res.render('productos/index.ejs', { productos: productos});
+                        })
+                        .catch(function(error) {
+                          next(error);
+                        });
 
                     }) 
                     .catch(Sequelize.ValidationError, function(error) {
@@ -178,7 +189,7 @@ exports.create = function(req, res, next) {
 
 // GET /quizzes/:id/edit
 exports.edit = function(req, res, next) {
-  var producto = req.producto;  // req.quiz: autoload de instancia de quiz
+  var producto = req.producto;  
   var nombre = req.producto.nombre;
 
   res.render('productos/edit', {producto: producto, nombre: nombre});
