@@ -1,4 +1,38 @@
 <div>
+	<form method="get" action="/generar" >      
+
+
+			<label for="resp">Precio: <big> <%= precio %></big></label>
+
+			 <br />
+			 	<p> <%= ids_productos %> </p>
+			 	<p> <% JSON.stringify( productos_totales ) %></p>
+			 	<% [ids_productos].forEach(function (i) {  %>
+
+			 		<% var productos = productos_totales.i%>
+
+			 		<p> ids <% ids_productos[0] %></p>
+				<% // Object.keys(productos_totales).map(function (json_producto){ %> 
+
+			 		<p> Producto: <% //productos_totales[i].nombre %></p>
+			 		<p> cantidad: <% //productos_totales[i].cantidad %></p>
+			 		<p> precio unidad: <% //productos_totales[i].precio %></p>
+			 		<p> precio total: <% //productos_totales[i].precioTotal %></p>
+
+			 	<% 	 } ) %>
+        <input type="text" id="precio" name="precio" value= "<%= precio %>" size="30" autocomplete="off" />
+        	<br />
+			<a href="/productos"><button type="button">Cancelar</button></a>
+			<br />
+			<input type="submit" value="Generar">
+
+</div>
+
+
+
+
+
+<div>
 
         <form method="get" action="/generar" >      
 
@@ -7,7 +41,7 @@
 
 			 <br />
 
-        <input type="text" id="precio" name="precio" size="30" autocomplete="off" />
+        <input type="text" id="precio" name="precio" value= "<%= precio %>" size="30" autocomplete="off" />
         	<br />
 			<a href="/productos"><button type="button">Cancelar</button></a>
 			<br />

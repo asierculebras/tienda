@@ -24,6 +24,7 @@ exports.index = function(req, res, next) {
       var username = req.session.user.username;
       var productos_totales = {};
       var json_productos; 
+      var ids_productos ;
 
         models.Carrito.findOne({where: {cajero: username}})
             .then(function(carrito) { 
@@ -66,16 +67,25 @@ exports.index = function(req, res, next) {
                                           futureJson[id_producto.toString()] = {'nombre': producto.nombre, 'cantidad': cantidad , 'precio':producto.precio, 'precioTotal':precioTotal};
                                           productos_totales = futureJson;
                                         }
-                                        console.log("el precio es: "+ precio);
-                                        console.log("la lista de productos_totales es " + JSON.stringify(productos_totales)); 
+                                        
+                                        ids_productos = [Object.keys(productos_totales)];      
+
 
                                         // me he quedado aquí por imbecil!!!  
                                       })
+                                        console.log("el precio es: "+ precio);
+                                        console.log("la lista de productos_totales es " + JSON.stringify(productos_totales));   
                                       })
+                           .then(function(productos) {
+                              console.log("el precio es: "+ precio);
+                  console.log("EL JSON FINAL ES: productos_totales es " + JSON.stringify(productos_totales)); 
+                  console.log("LAS IDS DE LOS PRODUCTOS QUE HAY ALMACENADOS SON : " + ids_productos); 
+                  res.render('compra/index.ejs', {precio: precio, productos_totales: productos_totales, ids_productos: ids_productos});
+                           })
                                     
 
-
-                  console.log("EL JSON FINAL ES: productos_totales es " + JSON.stringify(productos_totales));              
+                  
+      
         })
         .catch(function(error) {
           console.log(error); next(error);
@@ -83,8 +93,9 @@ exports.index = function(req, res, next) {
       // queir coger las id de productos, las cantidades del carrito
       // aceder a productos con esa ide sacar el precio
       // multiplicar el pecrio por la cantiad y generar el precio que paso como variable.  
-      // y almacenar en un array o en un json los productos para pasarlo como parametro y en el view recorrerlo.   
-			//res.render('compra/index.ejs', {precio: precio});
+      // y almacenar en un array o en un json los productos para pasarlo como parametro y en el view recorrerlo.  
+
+                
 };
 
 
