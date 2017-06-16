@@ -4,14 +4,14 @@ var Sequelize = require('sequelize');
 
 // Autoload el quiz asociado a :quizId
 exports.load = function(req, res, next, productoId) {
-	models.Producto.findById(productoId)
-  		.then(function(producto) {
-      		if (producto) {
-        		req.producto = producto;
-        		next();
-      		} else { 
-      			throw new Error('No existe productoId = ' + productoId);
-      		}
+  models.Producto.findById(productoId)
+      .then(function(producto) {
+          if (producto) {
+            req.producto = producto;
+            next();
+          } else { 
+            throw new Error('No existe productoId = ' + productoId);
+          }
         })
         .catch(function(error) { next(error); });
 };
@@ -19,23 +19,23 @@ exports.load = function(req, res, next, productoId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
-	models.Producto.findAll()
-		.then(function(productos) {
-			res.render('productos/index.ejs', { productos: productos});
-		})
-		.catch(function(error) {
-			next(error);
-		});
+  models.Producto.findAll()
+    .then(function(productos) {
+      res.render('productos/index.ejs', { productos: productos});
+    })
+    .catch(function(error) {
+      next(error);
+    });
 };
 
 
 // GET /quizzes/:id
 exports.show = function(req, res, next) {
 
-	var session = req.session ;
+  var session = req.session ;
 
-	res.render('productos/show', {producto: req.producto,
-								session: session});
+  res.render('productos/show', {producto: req.producto,
+                session: session});
 };
 
 
@@ -55,56 +55,31 @@ models.Carrito.findOne({where: {cajero: username}})
                 var total = carrito.total;
                 var userId = req.session.user.id;
                 var productoId = "" + productoId;
-                //var longitud = Object.keys(carrito.productos).length;
-                //console.log("LA LONGITUD DEL PRODUCTO ES : " + longitud );
-                //var igual = Object.keys(carrito.productos).length === 2;
-                //console.log("IGUAL " + igual);
-                console.log("EL CAJERO ES: " + carrito.cajero);
+                var productos = {};
 
-                console.log("EL PRODUCTO ID ES: " + productoId);
-                console.log("EL EL JSON QUE tiene el CARRITO ES: " + JSON.stringify(carrito.productos));
-
-                 if (carrito.productos === null){
-                    console.log("HA ENTRADO AL IF");
-                    var productos = {};
+                 if (carrito.productos === undefined || carrito.productos === null || Object.keys(carrito.productos).length <= 0){
                     productos[productoId] = {'productoId': productoId, 'cantidad':cantidad};
-                    console.log("EL EL JSON QUE meto en el CARRITO ES: " + JSON.stringify(productos));
-
-              } else {
-                console.log("HA ENTRADO AL ELSE");
-                    var productos = carrito.productos;
-                    var id = "" + productoId;
-                    var aux = {'productoId': id, 'cantidad': cantidad};
-                    console.log("PRODUCTOID ES : " + id);
-
-                    console.log("EL EL JSON QUE tiene el CARRITO ES: " + JSON.stringify(productos));
-                    console.log("EL EL JSON QUE QUIERO METER AL CARRITO ES: " + JSON.stringify(aux));
-
-                   
-                    productos[id] = aux;
-// me falla aqui, no se como añadir otro {} al que ya habia antes, es decir no me lo actualiza.
-
-                    //productos.id = [productoId, cantidad];
-                   console.log("DENTRO DEL ELSE PRODUCTOS ES : " + JSON.stringify(productos));
-              }
-                console.log("EL EL JSON QUE VOY A METER A CARRITO ES: " + JSON.stringify(productos));
-
+                  } else {
+                        var futureJson = JSON.parse(carrito.productos);
+                        if(futureJson[productoId.toString()] !== undefined){
+                            var old_quantity = parseInt(futureJson[productoId].cantidad);
+                            var new_quantity = parseInt(cantidad) + old_quantity;
+                            futureJson[productoId].cantidad = new_quantity;
+                        }else {
+                            futureJson[productoId.toString()] = {'productoId': productoId.toString(), 'cantidad': cantidad};
+                        }
+                        productos = futureJson;
+                  }
                 carrito.updateAttributes({productos: productos})
                  .then(function(carrito) {
-
-                      console.log("SE HA GUARDADO ESTOS PRODUCTOS " + JSON.stringify(carrito.productos));
-                      precio = 'nada';
-                      total = 
-
-
-                     models.Producto.findAll()
+                    console.log("SE HA GUARDADO ESTOS PRODUCTOS " + JSON.stringify(carrito.productos));
+                    models.Producto.findAll()
                         .then(function(productos) {
                           res.render('productos/index.ejs', { productos: productos});
                         })
                         .catch(function(error) {
                           next(error);
                         });
-
                     }) 
                     .catch(Sequelize.ValidationError, function(error) {
                       //req.flash('error', 'Error al crear un Comentario: ' + error.message);
@@ -168,8 +143,8 @@ exports.create = function(req, res, next) {
 
   // guarda en DB los campos pregunta y respuesta de quiz
   producto.save({fields: ["nombre", "precio"]})
-  	.then(function(producto) {
-    	res.redirect('/productos');  // res.redirect: Redirección HTTP a lista de preguntas
+    .then(function(producto) {
+      res.redirect('/productos');  // res.redirect: Redirección HTTP a lista de preguntas
     })
     .catch(Sequelize.ValidationError, function(error) {
 
@@ -181,9 +156,9 @@ exports.create = function(req, res, next) {
       res.render('producto/new', {producto: producto});
     })
     .catch(function(error) {
-		req.flash('error', 'Error al crear un Quiz: '+error.message);
-		next(error);
-	});  
+    req.flash('error', 'Error al crear un Quiz: '+error.message);
+    next(error);
+  });  
 };
 
 
@@ -204,7 +179,7 @@ exports.update = function(req, res, next) {
 
   req.producto.save({fields: ["nombre", "precio"]})
     .then(function(producto) {
-	  //req.flash('success', 'Producto editado con éxito.');
+    //req.flash('success', 'Producto editado con éxito.');
       res.redirect('/productos'); // Redirección HTTP a lista de preguntas.
     })
     .catch(Sequelize.ValidationError, function(error) {
@@ -217,7 +192,7 @@ exports.update = function(req, res, next) {
       res.render('productos/edit', {producto: req.producto});
     })
     .catch(function(error) {
-	  req.flash('error', 'Error al editar el Producto: '+error.message);
+    req.flash('error', 'Error al editar el Producto: '+error.message);
       next(error);
     });
 };
@@ -227,13 +202,12 @@ exports.update = function(req, res, next) {
 exports.destroy = function(req, res, next) {
   req.producto.destroy()
     .then( function() {
-	  //req.flash('success', 'Producto borrado con éxito.');
+    //req.flash('success', 'Producto borrado con éxito.');
       res.redirect('/productos');
     })
     .catch(function(error){
-	  req.flash('error', 'Error al editar el Producto: '+error.message);
+    req.flash('error', 'Error al editar el Producto: '+error.message);
       next(error);
     });
 };
-
 
