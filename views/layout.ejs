@@ -37,8 +37,9 @@
         <a href="/">Inicio</a>
         <a href="/productos">Productos</a>
         <a href="/users">Usuarios</a>
+        <% if ( session.user ) {%>
         <a href="/compra">Compra</a>
-
+        <%}%>
 
       </nav>
 

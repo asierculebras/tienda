@@ -2,23 +2,17 @@
 	<form method="get" action="/generar" >      
 
 
-			<label for="resp">Precio: <big> <%= precio %></big></label>
+			<h2 for="resp">Precio:<%= precio %></h2>
 
 			 <br />
-			 	<p> <%= ids_productos %> </p>
-			 	<p> <% JSON.stringify( productos_totales ) %></p>
-			 	<% [ids_productos].forEach(function (i) {  %>
+			 		<!-- con eso recorro el json y en el_buen_producto meto el json con mis propiedades -->
+				<%  Object.keys(productos_totales).map(function (el_buen_producto){ %>
 
-			 		<% var productos = productos_totales.i%>
-
-			 		<p> ids <% ids_productos[0] %></p>
-				<% // Object.keys(productos_totales).map(function (json_producto){ %> 
-
-			 		<p> Producto: <% //productos_totales[i].nombre %></p>
-			 		<p> cantidad: <% //productos_totales[i].cantidad %></p>
-			 		<p> precio unidad: <% //productos_totales[i].precio %></p>
-			 		<p> precio total: <% //productos_totales[i].precioTotal %></p>
-
+			 		<p> Producto: <%= productos_totales[el_buen_producto].nombre %></p>
+			 		<p> cantidad: <%= productos_totales[el_buen_producto].cantidad %></p>
+			 		<p> precio unidad: <%= productos_totales[el_buen_producto].precio %></p>
+			 		<p> precio total: <%= productos_totales[el_buen_producto].precioTotal %></p>
+					<br/>
 			 	<% 	 } ) %>
         <input type="text" id="precio" name="precio" value= "<%= precio %>" size="30" autocomplete="off" />
         	<br />
