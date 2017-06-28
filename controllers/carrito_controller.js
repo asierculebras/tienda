@@ -7,35 +7,19 @@ var url = require('url');
 
 
 exports.create = function(req, res, next) {
-
-  console.log("SAAAAAAAAAAA");
-
+  
 var redir = req.body.redir || '/'
-
-  console.log("EL REDIR ES "+ redir);
-
-  console.log("ENTRA EN FUNCTION 1");
-
-
 var login     = req.body.login;
 var user = "";
 var cajero = "";
 var productos ;
-console.log("EL LOGIN PARA BUSCAR EL USER ES " + login);
 
 models.User.findOne({where: {username: login}},{include: [models.Carrito]})
     .then(function(user) { 
          var user = user;
-           console.log("CONSIGO este user " + user);
-           console.log("ESTE ES EL USER" +user);
-           var cajero = user.username;
-           var userId = user.id;
-           console.log("ENTRA EN FUNCTION 2");
-           console.log("EL USERID DEL cajero QUE TIENE EL CALLBACK ES: " + userId);
-           console.log("EL MOMBRE DEL cajero QUE TIENE EL CALLBACK ES: " + cajero);
-           console.log("LOS PRODUCTOS SON: " + productos);
-
-
+         var cajero = user.username;
+          var userId = user.id;
+           
           var carrito = models.Carrito.build({cajero: cajero ,total:'0', productos: productos, UserId: userId})
                 console.log("ENTRA EN FUNCTION 3");
                 carrito.save({fields: ["cajero", "total","productos", "UserId"]})

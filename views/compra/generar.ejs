@@ -2,19 +2,23 @@
 
 <h1>Hola</h1>
 
-<p>EL precio a pagar es <strong><%= precio %> </strong></p>
+<p>EL precio a pagar es: <strong><%= precio %> </strong></p>
 <br/>
-<p>Y el token es: <%= clientToken %></p>
+<p>La url que tienes que poner en tu dispositivo es:  "<%= url %>"</p>
 
-<input type="button" name="miboton" id="miboton" value="Boton" onclick="miFuncion()" />
+<br/>
+
 
 <canvas id="canvas" style="width:100px; height:100px; margin: 0 auto; padding: 1em 3em; "></canvas>
 
-<!-- Los scripts Javascript van, generalmente, en el head -->
+<% if ( url ) {%>
+
+<input type="button" name="miboton" id="miboton" value="QR" onclick="miFuncion()" />
+
 <script type="text/javascript">
   function miFuncion() {
-    alert('Has hecho click en "miboton"');
-    qrcodelib.toCanvas(document.getElementById('canvas'), 'hola',
+    alert('Se va a generar el QR con la url');
+    qrcodelib.toCanvas(document.getElementById('canvas'),  "<%= url %>" ,
      function (error) {
     if (error){ console.error(error)}
       else{
@@ -24,10 +28,10 @@
   }
 </script>
 
-
+<%}%>
 
 <script type="text/javascript">
-  qrcodelib.toCanvas(document.getElementById('canvas'), 'Estamos generando el Pago', function (error) {
+  qrcodelib.toCanvas(document.getElementById('canvas'),'Estamos procesando tu pago', function (error) {
     if (error) console.error(error)
     console.log('success!');
   })

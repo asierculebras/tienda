@@ -1,0 +1,1 @@
+<p> El <strong>PAGO</strong> se ha realizado con exito</p>

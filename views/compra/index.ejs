@@ -2,7 +2,7 @@
 	<form method="get" action="/generar" >      
 
 
-			<h2 for="resp">Precio:<%= precio %></h2>
+			<h2 for="resp">Precio de la compra:<%= precio %> €</h2>
 
 			 <br />
 			 		<!-- con eso recorro el json y en el_buen_producto meto el json con mis propiedades -->
@@ -10,12 +10,15 @@
 
 			 		<p> Producto: <%= productos_totales[el_buen_producto].nombre %></p>
 			 		<p> cantidad: <%= productos_totales[el_buen_producto].cantidad %></p>
-			 		<p> precio unidad: <%= productos_totales[el_buen_producto].precio %></p>
-			 		<p> precio total: <%= productos_totales[el_buen_producto].precioTotal %></p>
+			 		<p> precio unidad: <%= productos_totales[el_buen_producto].precio %> €</p>
+			 		<p> precio total: <%= productos_totales[el_buen_producto].precioTotal %> €</p>
 					<br/>
 			 	<% 	 } ) %>
+			 	<p>Puede modificar el precio a cobrar en el siguiente espacio</p>
         <input type="text" id="precio" name="precio" value= "<%= precio %>" size="30" autocomplete="off" />
-        	<br />
+			<br/>
+        	<p> La url del código QR es: <%= url %> </p>
+        	  <input type="hidden" name="url" value=<%= url %> />
 			<a href="/productos"><button type="button">Cancelar</button></a>
 			<br />
 			<input type="submit" value="Generar">
@@ -24,7 +27,7 @@
 
 
 
-
+<!--
 
 <div>
 
@@ -43,3 +46,4 @@
 
   		</form>
     </div>
+    -->

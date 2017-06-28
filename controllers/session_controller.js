@@ -99,15 +99,8 @@ var authenticate = function(login, password) {
 
     return models.User.findOne({where: {username: login}})
     .then(function(user) {
-        console.log("EL USUARIO ES: "+ user);
-        console.log("EL USERNAME DE ESTE USUARIO ES: "+ user.username);
-        console.log("LA CONTRASEÑA DEL UARIO ES: "+ user.password);
-        console.log("LA CONTRASEÑA ESCRITA EN EL FORMULARIO ES: "+ password);
-        console.log("ES IGUAL LA CONTRASEÑA? "+ user.verifyPassword(password));        
-
         if (user && user.verifyPassword(password)) {
             return user;
-            console.log("DEVUELVE USER LA FUNCION AUTENTICATE:  " + user); 
         } else {
             return null;
         }

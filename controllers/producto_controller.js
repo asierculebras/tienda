@@ -103,26 +103,6 @@ models.Carrito.findOne({where: {cajero: username}})
 
 
 
-exports.indexCompra = function(req, res, next) {
-  models.Producto.findAll()
-    .then(function(productos) {
-      res.render('productos/index.ejs', { productos: productos});
-    })
-    .catch(function(error) {
-      next(error);
-    });
-};
-
-
-
-
-
-
-
-
-
-
-
 
 // GET /quizzes/new
 exports.new = function(req, res, next) {

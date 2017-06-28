@@ -49,12 +49,13 @@ router.get('/session',    sessionController.new);     // formulario login
 router.post('/session',   sessionController.create, carritoController.create);  // crear sesión
 router.delete('/session',  carritoController.destroy, sessionController.destroy); // destruir sesión
 
+
 router.get('/compra', compraController.index);
 router.get('/generar', compraController.generar);
+router.get('/url/:userId(\\d+)', compraController.url);
+router.post('/url/:userId(\\d+)', compraController.process);
+//router.get('/url', compraController.url);
 
-// cosas del carrito
-		//router.get('/carrito', carritoController.indexCompra);
-		//router.post('/productos/:productoId(\\d+)',                    productoController.create);
-		//router.get('/productos/:productoId(\\d+)/edit',  productoController.edit);
+
 
 module.exports = router;
