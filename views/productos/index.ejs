@@ -1,6 +1,6 @@
+<h2> Productos </h2>
 
-
-<table>
+<table class="w3-table-all">
      <tr>
         <th> <strong> NOMBRE <strong> </th>
         <th><strong>PRECIO</strong></th>
@@ -8,27 +8,30 @@
   <% for (var i in productos) { %>        
      <tr>
         <td>
-           <a href="/productos/<%= productos[i].id %>"><%= productos[i].nombre %></a>
+           <p><a href="/productos/<%= productos[i].id %>"><%= productos[i].nombre %></a></p>
         </td>
 
         <td>
            <p><%= productos[i].precio %> €</p>
         </td>
 
-
         <td>
-           <a href="/productos/<%= productos[i].id %>/edit"><button>editar</button></a>
+           <a href="/productos/<%= productos[i].id %>/edit"><button class="w3-button w3-green">editar</button></a>
         </td>
         <td>
            <a href="/productos/<%= productos[i].id %>?_method=DELETE" 
               onClick="return confirm('Borrar: <%= productos[i].nombre %>');">
-              <button>borrar</button>
+              <button class="w3-button w3-red">borrar</button>
            </a>
         </td>
      </tr> 
   <% } %>
 </table>
-
-<a href="/productos/new"><button type="button">Crear producto</button></a>
-
-
+<br/>
+<% if (session.user) { %>  
+<div class="w3-row-padding">
+    <div class="w3-bar">
+        <a href="/productos/new"><button class="w3-button w3-blue" type="button">Nuevo Producto</button></a>
+    </div>
+</div>
+<%  }; %> 

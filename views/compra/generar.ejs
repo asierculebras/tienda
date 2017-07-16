@@ -1,19 +1,20 @@
-
-
-<h1>Hola</h1>
-
-<p>EL precio a pagar es: <strong><%= precio %> </strong></p>
+<h1>Hola <%= username %></h1>
+<h3>EL precio a total de la compra es: <strong><%= precio %> €</strong></h3>
 <br/>
-<p>La url que tienes que poner en tu dispositivo es:  "<%= url %>"</p>
+<p>La url que tienes que poner en tu dispositivo es: </p>
 
-<br/>
+<p> <strong><%= url %></strong></p>
+
+<br>
 
 
-<canvas id="canvas" style="width:100px; height:100px; margin: 0 auto; padding: 1em 3em; "></canvas>
+<canvas id="canvas" style="width:500px; height:500px; "></canvas>
+
+<!--<canvas id="canvas" style="width:300px; height:300px; margin: 0 auto; padding: 1em 3em; ">-->
 
 <% if ( url ) {%>
-
-<input type="button" name="miboton" id="miboton" value="QR" onclick="miFuncion()" />
+<BR>
+<input class="botonQR" type="button" name="miboton" id="miboton" value="QR" onclick="miFuncion()" />
 
 <script type="text/javascript">
   function miFuncion() {

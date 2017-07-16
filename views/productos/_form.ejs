@@ -1,10 +1,19 @@
 
-	<label for="preg">Producto:</label>
-	<input type="text" id="preg" name="producto[nombre]" value="<%= producto.nombre %>" placeholder="Nombre" required/> <p>
+<div class="w3-row-padding">
+    <div class="w3-half">
+        <label for="preg" class="rem">Producto:</label>
+        <input class="w3-input w3-border" type="text" id="preg" name="producto[nombre]" value="<%= producto.nombre %>" placeholder="Nombre" required /> <p>
+    </div>
 
-	<label for="resp">Precio:</label>
-	<input type="text" id="resp" name="producto[precio]" value="<%= producto.precio %>" placeholder="Precio" required/> <p>
+    <div class="w3-half">
+        <label for="resp">Precio:</label>
+        <input class="w3-input w3-border" type="text" id="resp" name="producto[precio]" value="<%= producto.precio %>" placeholder="Precio" required /> <p>
+    </div>
+</div>
 
-	<a href="/productos"><button type="button">Cancelar</button></a>
-
-	<input type="submit" value="Salvar">
+<div class="w3-row-padding">
+    <div class="w3-bar">
+        <input class="w3-button w3-green" type="submit" value="Guardar" />
+        <a href="/productos"><button class="w3-button w3-red" type="button">Cancelar</button></a>
+    </div>
+</div>

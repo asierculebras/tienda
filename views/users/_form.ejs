@@ -16,31 +16,36 @@
    }
 </script>
 
+<div class="w3-row-padding">
+    <div class="w3-half">
+        <label for="preg" class="rem">Username:</label>
+    <% if ( ! user.id) { %>
+        <input class="w3-input w3-border" type="text" id="username" name="user[username]" value="<%= user.username %>" /><p>
+    <% } else { %>
+        <input class="w3-input w3-border" type="text" id="username" name="user[username]" value="<%= user.username %>" readonly /><p>
+    <% } %>
+    </div>
 
-<div>
-	<% if ( ! user.id) { %>
-		<label for="preg" class="rem">Username:</label>
-		<input type="text" id="username" name="user[username]" value="<%= user.username %>"/><p>
-	<% } else { %>
-		Username: <%= user.username %>
-	<% } %>
+    <div class="w3-half">
+        <div><p></div>
+    </div>
 </div>
 
-<div>
-	<label for="user_password" class="rem">Password:</label>
-	<input type="password" id="user_password" name="user[password]"/> <p>
+<div class="w3-row-padding">
+    <div class="w3-half">
+        <label for="user_password" class="rem">Password:</label>
+        <input class="w3-input w3-border" type="password" id="user_password" name="user[password]"/> <p>
+    </div>
+
+    <div class="w3-half">
+        <label for="user_confirm_password" class="rem">Confirmar Password:</label>
+        <input class="w3-input w3-border" type="password" id="user_confirm_password" /> <p>
+    </div>
 </div>
 
-<div>
-	<label for="user_confirm_password" class="rem">Confirmar Password::</label>
-	<input type="password" id="user_confirm_password" /> <p>
-</div>
-
-
-<div>
-	<a href="/users"><button type="button">Cancelar</button></a>
-</div>
-
-<div>
-	<input type="submit" value="Guardar" onclick="return confirmPassword()">
+<div class="w3-row-padding">
+    <div class="w3-bar">
+        <input class="w3-button w3-green" type="submit" value="Guardar" onclick="return confirmPassword()">
+        <a href="/users"><button class="w3-button w3-red" type="button">Cancelar</button></a>
+    </div>
 </div>

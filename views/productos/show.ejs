@@ -1,28 +1,25 @@
 
-
 <p>
-  <form method="post" action="/productos/<%= producto.id %>">     
+  <form method="post" action="/productos/<%= producto.id %>">
+  
 <% if (session.user) { %>
   <p> Hola <%= session.user.username %></p> 
-  <% } %>  
-    <p>
-      El producto selecionado es: <br>
-       <%= producto.nombre %>
+<% } %>  
+    <p>El producto selecionado es: <br>
+        <%= producto.nombre %>
     </p>
 
-    <p>
-      Y su precio es: <br>
-       <%= producto.precio %> €
+    <p>Y su precio es: <br>
+        <%= producto.precio %> €
     </p>
 
     <p>
     <% if (session.user ) { %>
     <input type="text" id="resp" name="cantidad" value=1  required/> 
-    <br/>
-
- <input type="submit" value="Comprar">
-   <% } %> 
-     
+    <BR>
+    <input type="submit" value="Comprar">
+    <% } %> 
     </p>
+    
   </form>
 </p>

@@ -1,24 +1,33 @@
+<script>
+function goBack() {
+    window.history.back();
+}
+</script> 
 
-<h1>Login</h1>
+<h2>Login</h2>
 
-<form method='post' action='/session'>
+<form method='post' action='/session' class="w3-row-padding">
 
     <input type='hidden' name='redir' value='<%= redir %>'>
 
-    <div>
-        <label for="login">Login:</label>
-        <br />
-        <input type="text" id="login" name="login" size="30" autocomplete="off" />
+    <div class="w3-row-padding">
+        <div class="w3-half">
+            <label for="login">Login:</label>
+            <input class="w3-input w3-border" type="text" id="login" name="login" size="30" autocomplete="off" />
+        </div>
+        <div class="w3-half">
+            <label for="password">Password:</label>
+            <input class="w3-input w3-border" type="password" id="password" name="password" size="30" autocomplete="off" />
+        </div>
     </div>
 
-    <div>
-        <label for="password">Password:</label>
-        <br />
-        <input type="password" id="password" name="password" size="30" autocomplete="off" />
-    </div>
+    <br />
 
-    <div>
-        <input name="commit" type="submit" value="Entrar" />
+    <div class="w3-row-padding">
+        <div class="w3-bar">
+            <input class="w3-button w3-green" name="commit" type="submit" value="Entrar" />
+            <button class="w3-button w3-red" type="button" onclick="goBack()">Cancelar</button>
+        </div>
     </div>
 
 </form>

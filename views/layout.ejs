@@ -3,52 +3,65 @@
 <head>
   <meta charset="utf-8">
   <title> Tienda </title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <script src="qrcode.js"></script>
   <script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="qrcode.js"></script>
+  <script type="text/javascript" src="qrcode.js"></script>
 
+<style>
+.siempre-abajo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+</style>
 
 </head> 
 
 
 <body>
-<header class="main">
+    <header class="w3-container w3-teal main">
 
+    <h2>Tu supermercado de confianza</h2>
+    </header>
 
-<div class="right">
-
-<!-- la llamamos sesion por que esta definida en res.locals, y no hay que hacer lo de req.session, en cada una de las peticiones, lo almacenamos en local. -->
-          <% if (!session.user) { %>
-              <a href="/users/new">Registrarse</a> 
-              <a href="/session">Login</a>
-          <% } else { %>
-              Hola <strong><%= session.user.username %> </strong> 
-              <a href="/users/<%= session.user.id %>"> Perfil</a>
-              <a href="/session?_method=DELETE"> Logout</a>
-          <% } %>
-        </div>
-
-
-  <h2>Tu supermecado de confianza</h2>
-  </header>
-  <nav class="main" role="navigation">
-        <a href="/">Inicio</a>
-        <a href="/productos">Productos</a>
-        <a href="/users">Usuarios</a>
+    <div class="w3-bar w3-black">
+        <a href="/" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+        <a href="/productos" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-table" aria-hidden="true"></i> Productos</a>
+        <a href="/users" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
         <% if ( session.user ) {%>
-        <a href="/compra">Compra</a>
-        <%}%>
+        <a href="/compra" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Compra</a>
+        <% } %>
+        <!-- la llamamos sesion por que esta definida en res.locals, y no hay que hacer lo de req.session, en cada una de las peticiones, lo almacenamos en local. -->
+        <% if (!session.user) { %>
+        <a href="/users/new" class="w3-bar-item w3-button w3-mobile w3-right"><i class="fa fa-pencil" aria-hidden="true"></i> Registrarse</a>
+        <a href="/session" class="w3-bar-item w3-button w3-mobile w3-right"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+        <% } else { %>
+        <span class="w3-bar-item w3-mobile w3-right">Hola <strong><%= session.user.username %> </strong></span>
+        <a href="/users/<%= session.user.id %>" class="w3-bar-item w3-button w3-mobile w3-right"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a>
+        <a href="/session?_method=DELETE" class="w3-bar-item w3-button w3-mobile w3-right"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        <% } %>
+    </div> 
 
-      </nav>
-
-      <section class="main">
-        <div>
+    <section class="main">
+        <div class="w3-container">
 
             <%- body %>
 
         </div>
-  </section>
-  </body>
+    </section>
+  
+    <footer class="w3-container w3-black siempre-abajo">
+        <p>Tu Supermercado de Confianza - 2017</p>
+    </footer>
+
+</body>
 </html>

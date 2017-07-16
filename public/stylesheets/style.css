@@ -25,7 +25,7 @@ a                    { color: #00B7FF; }
 
 
 section > div        { padding: 20px; 
-					   text-align: center;}
+             text-align: center;}
 
 header               { text-align: center;}
 nav                  { text-align: center;}
@@ -35,12 +35,43 @@ footer               { text-align: center;}
 .right               {float: right;}
 
 .github { color: black;
- 		link { font-size: 15px }
- 		visited { font-size: 15px }
- 		hover { font-size: 25px }
- 					
- 		}
+    link { font-size: 15px }
+    visited { font-size: 15px }
+    hover { font-size: 25px }
+          
+    }
 
+.botonGenenrar {
+ border: none;
+ background: #3a7999;
+ color: #f2f2f2;
+ padding: 10px;
+ font-size: 18px;
+ border-radius: 5px;
+ position: relative;
+ box-sizing: border-box;
+ transition: all 500ms ease;
+}
+
+.botonQR {
+ border: none;
+ background: red;
+ color: #f2f2f2;
+ padding: 10px;
+ font-size: 18px;
+ border-radius: 5px;
+ position: relative;
+ box-sizing: border-box;
+ transition: all 500ms ease;
+}
+
+.tablaChula {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+text-align: center;
+width: 600px;
+
+}
 
 div.centraTabla{
 text-align: center;
@@ -48,7 +79,7 @@ text-align: center;
 
 div.centraTabla table {
 margin: 0 auto;
-text-align: left;
+text-align: center;
 }
 
 nav a                { margin: 0px 10px 0px 0px;}

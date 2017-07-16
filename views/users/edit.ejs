@@ -1,10 +1,8 @@
 
-<p>
-    Editar usuario:
-</p>
+<h2>Editar usuario</h2>
 
 <p>
-    <form method="post" action="/users/<%= user.id %>?_method=PUT" >      
+    <form method="post" action="/users/<%= user.id %>?_method=PUT" class="w3-row-padding">
         <% include _form.ejs %>
     </form>
 </p>

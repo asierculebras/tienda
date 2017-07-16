@@ -166,7 +166,7 @@ exports.index = function(req, res, next) {
                               console.log("el precio es: "+ precio);
                   console.log("EL JSON FINAL ES: productos_totales es " + JSON.stringify(productos_totales)); 
                   console.log("LAS IDS DE LOS PRODUCTOS QUE HAY ALMACENADOS SON : " + ids_productos); 
-                  var url = req.hostname +":"+ req.app.settings.port +"/url/" + req.session.user.id;
+                  var url ="http://"+ req.hostname +":"+ req.app.settings.port +"/url/" + req.session.user.id;
                   res.render('compra/index.ejs', {precio: precio, productos_totales: productos_totales, ids_productos: ids_productos, url: url});
                            })
            } else {
@@ -195,9 +195,10 @@ exports.generar = function(req, response, next) {
 var clientToken = '';
 var precio = req.query.precio;
 var url = req.query.url;
+var username = req.session.user.username;
 
 
-       response.render('compra/generar.ejs', {precio: precio, url: url });
+       response.render('compra/generar.ejs', {precio: precio, url: url, username: username });
 			
 };
 
